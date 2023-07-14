@@ -1,0 +1,61 @@
+<!-- https://www.youtube.com/watch?v=3BIuwVnddG0&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9 -->
+<!--* 2 way data binding => option 1 -->
+<input type="text" (input)="onInputText($event)" [value]="name" />
+<!--* [(ngModel)] directive => option 2 (better) -->
+<input type="text" [(ngModel)]="name" />
+<!--* template variables / local references => option 3 -->
+<!-- <input type="text" #name /> -->
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  -->
+<!-- Data Binding: bind/listen to (name) -->
+<!-- String Interpolation -->
+<p>{{ name }}</p>
+<p>{{ getName() }}</p>
+<!-- Property Binding & Event Binding-->
+<button
+  class="btn btn-primary"
+  [disabled]="!disabled"
+  (click)="onButtonClick()"
+>
+  click me
+</button>
+<!-- Property Binding as an alternative to String Interpolation  -->
+<p [innerText]="name"></p>
+<!-- Structural Directives (*) => change the DOM itself  -->
+<p *ngIf="show" style="color: blue">
+  ===========================> I've been showed
+</p>
+<p *ngIf="show; else alternative">
+  ===========================> I've been showed
+</p>
+<ng-template #alternative>
+  <p>===========================> I've been removed</p>
+</ng-template>
+<!-- Attribute Directives -->
+<!-- ngStyle directive is bound using [] .. change style dynamically -->
+<p [ngStyle]="{ backgroundColor: color || getColor() }">backgroundColor</p>
+<!-- ngClass directive is bound using [] .. change class dynamically -->
+<p [ngClass]="{ a: name == 'Ali', b: name == 'Mohamed' }">dynamic class</p>
+<p
+  *ngFor="let item of myArray; let i = index"
+  [ngStyle]="{ backgroundColor: item == 'item2' ? 'red' : 'yellow' }"
+  [ngClass]="{ a: item == 'item2' }"
+>
+  {{ item }} of index {{ i }}
+</p>
+<!-- use first component (no prop drilling) -->
+<app-first></app-first>
+<!-- bind child's value to a paren't value (drilling down - bound to name) -->
+<app-first [childVariableAlias]="name"></app-first>
+<!-- bind child's value to a paren't value (drilling down - bound to parentVariable) + mapping-->
+<app-first
+  *ngFor="let item of myArray; let i = index"
+  [childVariableAlias]="parentVariable"
+></app-first>
+<!-- <div app-first></div> -->
+<!-- <div class="app-first"></div> -->
+<!-- child to parent -->
+<app-first (newItemEvent)="addItem($event)"></app-first>
+<p>items ===> {{ items.length }}</p>
+<!--* content  -->
+<app-first>content to be projected</app-first>

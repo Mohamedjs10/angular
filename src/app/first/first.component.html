@@ -1,0 +1,13 @@
+<p>first component</p>
+
+<!--^ template variables / local references -->
+<input type="text" id="item-input" #newItem />
+<P>{{ newItem.value }}</P>
+<!--* data from parent (parentVariable overrides childVariable) -->
+<p>Data from parent into child: {{ childVariable }}</p>
+<!--* data from child to parent -->
+<button type="button" (click)="addNewItem(newItem.value)">
+  ===> Push to parent's items list
+</button>
+<!-- slot for content projection (children in react) -->
+<ng-content></ng-content>

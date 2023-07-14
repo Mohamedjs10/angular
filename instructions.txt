@@ -1,0 +1,6 @@
+ng new demo
+cd demo
+ng serve
+-----------------------------
+geneerating components
+ng g c first-component
