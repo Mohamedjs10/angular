@@ -7,7 +7,10 @@ import {
   SimpleChanges,
   OnInit,
   OnDestroy,
+  AfterViewInit,
   ViewEncapsulation,
+  ViewChild,
+  ElementRef,
 } from '@angular/core';
 
 @Component({
@@ -26,6 +29,7 @@ export class FirstComponent implements OnInit, OnDestroy, OnChanges {
     this.newItemEvent.emit(value);
   }
   //& ViewChild makes it possible to access native DOM elements that have a template reference variable => from (component.ts)
+  @ViewChild('newItem') newItem!: ElementRef;
 
   constructor() {}
   //* lifecycle hooks
@@ -40,7 +44,11 @@ export class FirstComponent implements OnInit, OnDestroy, OnChanges {
     console.log('on 1st render');
     console.log('when childVariable changes');
   }
+  // called after Angular has fully initialized a component's view.
+  ngAfterViewInit() {
+    this.newItem.nativeElement.value = 'testing @ViewChild';
+  }
   ngOnDestroy() {
-    // console.log('Component Destroyed');
+    console.log('Component Destroyed');
   }
 }
